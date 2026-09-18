@@ -1,9 +1,25 @@
 # no-block-delay
+A minimal Fabric minecraft mod that removes the 4 tick delay when placing blocks.
 
-## Setup
+## Configuration
+The mod uses a `noblockdelay.json` in the fabric config directory,
+using
+```java
+FabricLoader.getInstance().getConfigDir().resolve("noblockdelay.json");
+```
+_This auto-generates the config file, if it doesn't already exist._
 
-For setup instructions, please see the [Fabric Documentation page](https://docs.fabricmc.net/develop/getting-started/creating-a-project#setting-up) related to the IDE that you are using.
+Default config file:
+```json
+{
+  "enabled": true
+}
+```
+### Enabling / Disabling
+You can toggle the mod, using: 
+```
+/noblockdelay toggle
+```
+_This also saves the content to the config file._
 
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+Or you can edit the `noblockdelay.json` config file directly.
