@@ -13,6 +13,7 @@ public class NoBlockDelayConfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     public boolean enabled = true;
+    public int delay = 0;
 
     private static NoBlockDelayConfig instance;
 

@@ -1,5 +1,6 @@
 package name.modid.client;
 
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandManager;
 import net.fabricmc.fabric.api.client.command.v2.ClientCommandRegistrationCallback;
@@ -22,7 +23,21 @@ public class NoBlockDelayClient implements ClientModInitializer {
 								context.getSource().sendFeedback(Text.literal("noblockdelay:" + (config.enabled ? "Enabled" : "Disabled"))
 								);
 								return 1;
-							})));
+							}))
+					.then(ClientCommandManager.literal("set")
+						.then(ClientCommandManager.argument("delay", IntegerArgumentType.integer(0))
+							.executes(context -> {
+								int delay = IntegerArgumentType.getInteger(context, "delay");
+
+								NoBlockDelayConfig config = NoBlockDelayConfig.get();
+								config.delay = delay;
+								NoBlockDelayConfig.save();
+
+								context.getSource().sendFeedback(Text.literal("noblockdelay: set delay to " + delay)
+								);
+								return 1;
+							})))
+			);
 		}));
 	}
 }

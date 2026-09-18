@@ -17,7 +17,13 @@ public abstract class MinecraftClientMixin {
     @Inject(method = "handleInputEvents", at = @At("HEAD"))
     private void resetItemUseCooldown(CallbackInfo ci) {
         if (NoBlockDelayConfig.get().enabled) {
-            this.itemUseCooldown = 0;
+            if (NoBlockDelayConfig.get().delay == 0) {
+                this.itemUseCooldown = 0;
+                return;
+            }
+            else if (this.itemUseCooldown > NoBlockDelayConfig.get().delay) {
+                this.itemUseCooldown = NoBlockDelayConfig.get().delay;
+            }
         }
     }
 }
